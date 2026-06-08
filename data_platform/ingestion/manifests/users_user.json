@@ -1,0 +1,10 @@
+{
+    "table_name": "users_user",
+    "primary_key": [
+        "id"
+    ],
+    "watermark_column": "updated_at",
+    "last_watermark": "2026-06-04T01:00:00",
+    "rows_extracted": 100,
+    "run_status": "success"
+}

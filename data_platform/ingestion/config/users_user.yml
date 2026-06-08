@@ -1,0 +1,58 @@
+
+target_schema_name: raw
+target_table_name: users_user
+
+data_source_name: postgres
+extract_group: users
+
+object_schema: public
+object_name: users_user
+
+cdc_type: incremental
+watermark_column: updated_at
+
+enabled: true
+
+primary_key:
+  - id
+
+columns:
+  - target_column_name: id
+    column_name: id
+    ordinal_position: 1
+    sql_data_type: BIGINT
+
+  - target_column_name: email
+    column_name: email
+    ordinal_position: 2
+    sql_data_type: VARCHAR
+
+  - target_column_name: mobile
+    column_name: mobile
+    ordinal_position: 3
+    sql_data_type: VARCHAR
+
+  - target_column_name: first_name
+    column_name: first_name
+    ordinal_position: 4
+    sql_data_type: VARCHAR
+
+  - target_column_name: last_name
+    column_name: last_name
+    ordinal_position: 5
+    sql_data_type: VARCHAR
+
+  - target_column_name: is_active
+    column_name: is_active
+    ordinal_position: 6
+    sql_data_type: BOOLEAN
+
+  - target_column_name: created_at
+    column_name: created_at
+    ordinal_position: 7
+    sql_data_type: TIMESTAMP
+
+  - target_column_name: updated_at
+    column_name: updated_at
+    ordinal_position: 8
+    sql_data_type: TIMESTAMP

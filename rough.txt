@@ -1,0 +1,68 @@
+book_store
+|
+├── docker-compose.yml                 # ✅ single entry point (IMPORTANT)
+├── siyaram_bookstore/                  # Django OLTP (Untouched source of truth)│   │
+│   ├── manage.py
+│   │
+│   ├── config/                       # (your Django settings package)
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── wsgi.py
+│   │
+│   ├── users/
+│   │   ├── models.py
+│   │
+│   ├── books/
+│   │   ├── models.py
+│   │
+│   ├── orders/
+│   │   ├── models.py
+|
+└── data_platform/
+    ├── ingestion/
+    │   ├── config/           # YAML per entity (users, books, orders)
+    │   ├── extractors/       # Postgres pull logic
+    │   ├── loaders/          # s3_loader.py, local_loader.py
+    │   ├── storage/          # S3 simulation (raw/, processed/, archive/)
+    │   └── manifests/        # Meta JSONs per run
+    ├── warehouse/            # Strict landing zone setup
+    │   ├── ddl/              # ONLY raw landing tables (staging/marts managed by dbt)
+    │   ├── stages/           # Snowflake external/internal stages
+    │   └── client.py         # Snowflake connector
+    ├── transform/            # dbt project root (owns all downstream DDL/DML)
+    │   ├── models/
+    │   │   ├── staging/      # Raw -> Cleaned. Includes yml data quality tests.
+    │   │   ├── intermediate/ # Joins & Business logic
+    │   │   └── marts/        # Final analytics tables
+    │   ├── snapshots/        # SCD Type 2 logic
+    │   ├── tests/            # Custom data quality rules
+    │   └── dbt_project.yml
+    ├── orchestration/        # Airflow
+    │   ├── dags/             # ingestion_dag, dbt_dag (triggers dbt run/test)
+    │   └── plugins/          # Custom operators
+    ├── quality/              # Cross-system audits only
+    │   └── reconciliation/   # Postgres vs Snowflake row count checks
+    ├── cdc/                  # Debezium / Kafka (Placeholder for future scale)
+    └── utils/                # Shared utilities (db_connections, logger)
+
+
+
+App Name	Model	Database Table	    Fields
+books	Category	books_category	    id, name, order, is_active, created_at, updated_at
+books	Book	    books_book	        id, title, author, price, category_id, description, file, cover, is_active, created_at, updated_at
+users	User	    users_user	        id, password, last_login, is_superuser, mobile, email, first_name, last_name, is_active, is_staff, created_at, updated_at
+users	UserEvent	users_userevent	    id, user_id, event_type, timestamp, metadata, ip_address, user_agent
+orders	Order	    orders_order	    id, user_id, total_amount, status, buyer_name, email, created_at, updated_at
+orders	OrderItem	orders_orderitem	id, order_id, product_id, quantity, price
+orders	Payment	    orders_payment	    id, order_id, payment_id, paid, created_at, updated_at
+
+Example:
+Table	Dimension or Fact?	Full Load or Incremental?	Why?
+
+
+
+| users_user | Dimension | Incremental | Users can update profile |
+| users_userevent | Dimension | Incremental | Users_event can keep ingesting new events |
+| books_book | Dimension | Incremental | Users_event can keep ingesting new events |
+
+========================
