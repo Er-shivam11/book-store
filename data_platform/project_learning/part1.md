@@ -1,8 +1,13 @@
-Absolutely. Before we start coding, it's a good idea to lock in what you've learned so far.
-
-# 🚀 E-Book Data Engineering Project — Learning Checklist
-
 ## Phase 0: Business & Architecture Foundation ✅
+| Step | Layer           | Component         | What happens                     | Output                                  |
+| ---- | --------------- | ----------------- | -------------------------------- | --------------------------------------- |
+| 1    | OLTP Source     | Django/Postgres   | App generates transactional data | users, books, orders tables             |
+| 2    | Metadata        | YAML configs      | Defines table structure + rules  | users_user.yml                          |
+| 3    | Connection      | db_connection.py  | Connects to Postgres             | DB connection object                    |
+| 4    | Extraction      | PostgresExtractor | Reads YAML + runs dynamic SQL    | Python list of dicts                    |
+| 5    | State Tracking  | MetadataManager   | Stores watermark + run info      | JSON metadata file                      |
+| 6    | Raw Layer       | LocalLoader       | Writes extracted data as file    | raw JSON file                           |
+| 7    | Warehouse Ready | Snowflake input   | Raw files ready for ingestion    | S3-like dataset (future Snowflake load) |
 
 ### Business Understanding
 
@@ -423,45 +428,6 @@ You can confidently answer:
 
 ---
 
-# What We Have NOT Started Yet
-
-### PostgreSQL Extraction
-
-* ❌ Python extractor
-* ❌ Database connection
-* ❌ Query generation
-* ❌ Full load implementation
-* ❌ Incremental implementation
-
-### S3 Simulation
-
-* ❌ Writing JSON files
-* ❌ Partitioned folders
-
-### Snowflake
-
-* ❌ Raw tables
-* ❌ Stages
-* ❌ COPY INTO
-
-### dbt
-
-* ❌ Sources
-* ❌ Staging models
-* ❌ Marts
-
-### Airflow
-
-* ❌ DAGs
-* ❌ Scheduling
-
-### Data Quality
-
-* ❌ Null checks
-* ❌ Reconciliation
-
----
-
 # Current Project Position
 
 ```text
@@ -484,10 +450,8 @@ users_user.json
 manifest.json
 ```
 
-That will be your first production-style Data Engineering pipeline component.
-================================================================================
 
-yaml approach for extractor
+### yaml approach for extractor
 
 
 target_schema_name: raw
@@ -549,14 +513,3 @@ columns:
     sql_data_type: TIMESTAMP
 
 
-    ============================
-
-    | Step | Layer           | Component         | What happens                     | Output                                  |
-| ---- | --------------- | ----------------- | -------------------------------- | --------------------------------------- |
-| 1    | OLTP Source     | Django/Postgres   | App generates transactional data | users, books, orders tables             |
-| 2    | Metadata        | YAML configs      | Defines table structure + rules  | users_user.yml                          |
-| 3    | Connection      | db_connection.py  | Connects to Postgres             | DB connection object                    |
-| 4    | Extraction      | PostgresExtractor | Reads YAML + runs dynamic SQL    | Python list of dicts                    |
-| 5    | State Tracking  | MetadataManager   | Stores watermark + run info      | JSON metadata file                      |
-| 6    | Raw Layer       | LocalLoader       | Writes extracted data as file    | raw JSON file                           |
-| 7    | Warehouse Ready | Snowflake input   | Raw files ready for ingestion    | S3-like dataset (future Snowflake load) |
