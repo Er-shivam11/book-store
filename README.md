@@ -40,6 +40,7 @@ Analytics marts
 Dashboard / insights
 
 
+```python
 
 book_store/
 |
@@ -250,6 +251,7 @@ book_store/
 ├── data_platform/        → requirements.txt (Snowflake, pandas, dbt, airflow)
 ├── frontend/             → npm dependencies (isolated already)
 
+```
 1. A **full system flow diagram** of your Bookstore project showing all components.
 2. A set of **real-life system design interview questions**, framed as an interviewer, which you can answer **using your Bookstore project as the solution**.
 
