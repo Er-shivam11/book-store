@@ -65,4 +65,20 @@ Table	Dimension or Fact?	Full Load or Incremental?	Why?
 | users_userevent | Dimension | Incremental | Users_event can keep ingesting new events |
 | books_book | Dimension | Incremental | Users_event can keep ingesting new events |
 
-========================
+
+
+warehouse/
+│
+├── client.py
+│
+├── ddl/
+│   ├── create_database.sql
+│   ├── create_schemas.sql
+│   └── raw_users_user.sql
+│
+├── stages/
+│   └── create_internal_stage.sql
+│
+└── loaders/
+    └── snowflake_loader.py
+
