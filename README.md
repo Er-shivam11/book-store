@@ -47,13 +47,28 @@ book_store/
 ├── data_platform/
 |    ├── ingestion/
 |    │   ├── config/           # YAML per entity (users, books, orders)
+│    │   │   └── users_user.yml
 |    │   ├── extractors/       # Postgres pull logic
+|    |   │   └── postgres_extractor.py
 |    │   ├── loaders/          # s3_loader.py, local_loader.py
+│    │   │   ├── local_loader.py
+│    │   │   └── s3_loader.py        # future
 |    │   ├── storage/          # S3 simulation (raw/, processed/, archive/)
+│    │   │   ├── raw/
+│    │   │   │   └── users_user/
+│    │   │   │       └── 2026-06-04.json
+│    │   │   ├── processed/
+│    │   │   └── archive/
 |    │   └── manifests/        # Meta JSONs per run
+|    |         └── users_user.json
 |    ├── warehouse/            # Strict landing zone setup
 |    │   ├── ddl/              # ONLY raw landing tables (staging/marts managed by dbt)
+│    |   |   ├── create_database.sql
+│    │   │   ├── create_schemas.sql
+│    │   │   └── raw_users_user.sql
+|    |   |
 |    │   ├── stages/           # Snowflake external/internal stages
+|    |   |   └── create_internal_stage.sql
 |    │   └── client.py         # Snowflake connector
 |    ├── transform/            # dbt project root (owns all downstream DDL/DML)
 |    │   ├── models/
