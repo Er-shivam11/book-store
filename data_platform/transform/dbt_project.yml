@@ -1,0 +1,13 @@
+name: 'bookstore'
+version: '1.0'
+config-version: 2
+
+profile: 'bookstore'
+
+model-paths: ["models"]
+
+models:
+  bookstore:
+    staging:
+      +schema: STAGING
+      +materialized: view
