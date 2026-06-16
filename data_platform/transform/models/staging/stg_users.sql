@@ -1,28 +1,20 @@
-WITH source AS (
-
+WITH raw_data AS (
     SELECT
-        RAW_DATA,
-        LOAD_TIMESTAMP
+        raw_data,
+        load_timestamp
     FROM RAW.USERS_USER
-
 ),
 
 flattened AS (
-
     SELECT
-        value AS user_record,
-        LOAD_TIMESTAMP
-    FROM source,
-    LATERAL FLATTEN(input => RAW_DATA)
-
+        value:id::INT AS user_id,
+        value:email::STRING AS email,
+        value:mobile::STRING AS mobile,
+        value:is_active::BOOLEAN AS is_active,
+        load_timestamp
+    FROM raw_data,
+    LATERAL FLATTEN(input => raw_data)
 )
 
-SELECT
-
-    user_record:id::NUMBER           AS user_id,
-    user_record:email::VARCHAR       AS email,
-    user_record:mobile::VARCHAR      AS mobile,
-    user_record:is_active::BOOLEAN   AS is_active,
-    LOAD_TIMESTAMP
-
+SELECT *
 FROM flattened

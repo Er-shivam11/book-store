@@ -8,6 +8,12 @@ model-paths: ["models"]
 
 models:
   bookstore:
+
     staging:
       +schema: STAGING
-      +materialized: view
+
+    intermediate:
+      +schema: INTERMEDIATE
+
+    marts:
+      +schema: MARTS

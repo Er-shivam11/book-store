@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_users
+    description: "Staging layer for users data"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
+      - name: email
+
+      - name: mobile
+
+      - name: is_active
