@@ -1,10 +1,7 @@
 version: 2
 
 models:
-
-  - name: int_users
-
-    description: Business-ready user model
+  - name: fact_users_incremental
 
     columns:
 
@@ -13,11 +10,7 @@ models:
           - not_null
           - unique
 
-      - name: email_status
-        tests:
-          - not_null
-
-      - name: is_active_flag
+      - name: email
         tests:
           - not_null
 

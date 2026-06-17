@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: User dimension table for analytics
+
+    columns:
+
+      - name: user_id
+        description: Unique user identifier
+        tests:
+          - unique
+          - not_null
+
+      - name: user_segment
+        description: Business segmentation of users
+        tests:
+          - not_null
+
+      - name: load_timestamp
+        description: Audit timestamp
+        tests:
+          - not_null
