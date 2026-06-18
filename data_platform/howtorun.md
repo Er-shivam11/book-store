@@ -1,33 +1,62 @@
+# 🚀 Data Platform - End-to-End Execution Guide
 
-# 1️⃣ Insert/Update data in PostgreSQL
+## 1️⃣ Insert / Update data in PostgreSQL
 
-Use Django Admin, pgAdmin, or SQL.
+Use one of the following:
 
-(No Python file)
+* Django Admin
+* pgAdmin
+* SQL Query
 
----
+Example:
 
-# 2️⃣ Extract from PostgreSQL → Local JSON
-
-```bash
-python ingestion/extractors/postgres_extractor.py
-```
-
-(or whatever your main extractor entry file is, if you have a wrapper script)
-
----
-
-# 3️⃣ Load JSON → Snowflake RAW
-
-Run your Snowflake loader:
-
-```bash
-python warehouse/loaders/snowflake_loader.py
+```sql
+UPDATE users_user
+SET
+    email='new@gmail.com',
+    is_active=false
+WHERE id=1;
 ```
 
 ---
 
-# 4️⃣ Run dbt models
+# 2️⃣ Extract PostgreSQL → Local JSON
+
+Run the extraction script.
+
+```bash
+python -m scripts.run_extraction
+```
+
+Output:
+
+```text
+PostgreSQL
+      ↓
+Python Objects
+      ↓
+ingestion/storage/raw/users_user/YYYY-MM-DD.json
+```
+
+---
+
+# 3️⃣ Load Local JSON → Snowflake RAW
+
+```bash
+python -m scripts.run_snowflake_loader
+```
+
+Output:
+
+```text
+Snowflake
+
+BOOKSTORE_DW.RAW.USERS_USER
+```
+
+---
+
+# 4️⃣ Run dbt Models
 
 ```bash
 python transform/run_dbt_run.py
@@ -45,9 +74,21 @@ INTERMEDIATE
 MARTS
 ```
 
+Creates:
+
+```text
+STAGING.STG_USERS
+
+INTERMEDIATE.INT_USERS
+
+MARTS.DIM_USERS
+
+MARTS.FACT_USERS_INCREMENTAL
+```
+
 ---
 
-# 5️⃣ Run Snapshot
+# 5️⃣ Run Snapshot (SCD Type 2)
 
 ```bash
 python transform/run_dbt_snapshot.py
@@ -56,8 +97,10 @@ python transform/run_dbt_snapshot.py
 Builds:
 
 ```text
-SNAPSHOTS
+SNAPSHOTS.USERS_SNAPSHOT
 ```
+
+This preserves historical versions of user records.
 
 ---
 
@@ -67,18 +110,24 @@ SNAPSHOTS
 python transform/run_dbt_test.py
 ```
 
-Checks:
+Current tests:
 
 * not_null
 * unique
-* relationships (later)
-* accepted_values (later)
+
+Future tests:
+
+* relationships
+* accepted_values
+* freshness
 
 ---
 
 # 7️⃣ Verify in Snowflake
 
-```sql
+Check the following objects:
+
+```text
 RAW.USERS_USER
 
 ↓
@@ -95,31 +144,37 @@ MARTS.DIM_USERS
 
 ↓
 
+MARTS.FACT_USERS_INCREMENTAL
+
+↓
+
 SNAPSHOTS.USERS_SNAPSHOT
 ```
 
 ---
 
-# 8️⃣ Update one record in PostgreSQL
+# 8️⃣ Update PostgreSQL Again
 
-For example:
+Example:
 
 ```sql
 UPDATE users_user
 SET
-email='new@gmail.com',
-is_active=false
+    email='updated@gmail.com',
+    is_active=true
 WHERE id=1;
 ```
 
+or insert a new record.
+
 ---
 
-# 9️⃣ Run again
+# 9️⃣ Execute the Pipeline Again
 
 ```bash
-python ingestion/extractors/postgres_extractor.py
+python -m scripts.run_extraction
 
-python warehouse/loaders/snowflake_loader.py
+python -m scripts.run_snowflake_loader
 
 python transform/run_dbt_run.py
 
@@ -134,33 +189,82 @@ python transform/run_dbt_test.py
 
 ```sql
 SELECT *
-FROM SNAPSHOTS.USERS_SNAPSHOT;
+FROM SNAPSHOTS.USERS_SNAPSHOT
+ORDER BY DBT_VALID_FROM DESC;
 ```
 
-You should see historical versions maintained according to your snapshot strategy.
+You should see:
+
+* previous version
+* latest version
+* valid_from
+* valid_to
 
 ---
 
-# 🚀 Complete execution flow
+# 📊 Complete ELT Pipeline Flow
 
 ```text
-1. Update PostgreSQL
-        ↓
-2. postgres_extractor.py
-        ↓
-3. snowflake_loader.py
-        ↓
-4. run_dbt_run.py
-        ↓
-5. run_dbt_snapshot.py
-        ↓
-6. run_dbt_test.py
-        ↓
-7. Verify in Snowflake
-        ↓
-8. Update PostgreSQL again
-        ↓
-9. Repeat steps 2–7
+                 PostgreSQL
+                      │
+                      ▼
+        python -m scripts.run_extraction
+                      │
+                      ▼
+          Local RAW JSON Files
+                      │
+                      ▼
+    python -m scripts.run_snowflake_loader
+                      │
+                      ▼
+             Snowflake RAW Layer
+                      │
+                      ▼
+        python transform/run_dbt_run.py
+                      │
+                      ▼
+                STAGING Layer
+                      │
+                      ▼
+             INTERMEDIATE Layer
+                      │
+                      ▼
+                 MARTS Layer
+                      │
+                      ▼
+    python transform/run_dbt_snapshot.py
+                      │
+                      ▼
+              SNAPSHOTS Layer
+                      │
+                      ▼
+      python transform/run_dbt_test.py
+                      │
+                      ▼
+          Data Quality Validation
+                      │
+                      ▼
+             BI / Analytics Ready
 ```
 
-This is the exact sequence you'll eventually automate in Airflow, where each of these commands becomes a separate task in the DAG.
+---
+
+# 🚀 Future Production Flow (Airflow)
+
+In production, these commands are executed automatically by an Airflow DAG:
+
+```text
+Extract
+   ↓
+Load RAW
+   ↓
+dbt Run
+   ↓
+Snapshot
+   ↓
+dbt Test
+   ↓
+Notify / Monitor
+```
+
+No manual execution is required once orchestration is configured.

@@ -1,7 +1,7 @@
-from utils.db_connection import get_postgres_connection
+from utils.postgres_connection import get_postgres_connection
 
 
-def test_db_connection():
+def test_postgres_connection():
 
     conn = get_postgres_connection()
 
@@ -12,4 +12,4 @@ def test_db_connection():
 
 
 if __name__ == "__main__":
-    test_db_connection()
+    test_postgres_connection()

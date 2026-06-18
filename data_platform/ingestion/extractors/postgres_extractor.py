@@ -1,4 +1,4 @@
-from utils.db_connection import get_postgres_connection
+from utils.postgres_connection import get_postgres_connection
 from utils.yaml_reader import read_yaml
 
 
