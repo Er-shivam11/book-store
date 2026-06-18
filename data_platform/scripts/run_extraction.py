@@ -1,13 +1,32 @@
 from ingestion.extractors.postgres_extractor import PostgresExtractor
+import os
 
 
 def test_extract():
 
-    extractor = PostgresExtractor("users_user.yml")
+    base_dir = os.path.dirname(os.path.dirname(__file__))
 
-    data = extractor.extract_full_data()
+    config_path = os.path.join(
+        base_dir,
+        "ingestion",
+        "config",
+        "users_user.yml"
+    )
 
-    print(data[:2])
+    manifest_path = os.path.join(
+        base_dir,
+        "ingestion",
+        "manifests",
+        "users_user.json"
+    )
+
+    extractor = PostgresExtractor(
+        config_file=config_path,
+        manifest_file=manifest_path
+    )
+
+    data = extractor.extract_data()
+    print(data)
 
 
 if __name__ == "__main__":

@@ -1,13 +1,9 @@
-{{ config(
-    materialized='incremental',
-    unique_key='user_id',
-    incremental_strategy='merge'
-) }}
+
 
 WITH src AS (
 
     SELECT *
-    FROM {{ ref('stg_users') }}
+    FROM BOOKSTORE_DW.STAGING.stg_users
 
 ),
 
