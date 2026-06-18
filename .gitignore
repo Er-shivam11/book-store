@@ -11,6 +11,8 @@ __pycache__/
 # Ignore learning/experimental folders
 impact_de/
 genai/
+snowflake/
+snowflake_accounts/
 
 # Django
 db.sqlite3
