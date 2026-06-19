@@ -268,3 +268,392 @@ Notify / Monitor
 ```
 
 No manual execution is required once orchestration is configured.
+
+TODO:
+For **your Bookstore Data Engineering Project**, here's an honest production-level assessment.
+
+---
+
+# ❄️ 1. SNOWFLAKE CORE
+
+## ✅ Covered
+
+### Easy
+
+* ✅ Snowflake Architecture
+* ✅ Database
+* ✅ Schemas
+* ✅ Tables
+* ✅ Warehouses
+* ✅ Roles (basic)
+* ✅ Internal Stage
+* ✅ COPY INTO
+* ✅ Auto Suspend/Resume (concept)
+* ✅ Credit Basics
+* ✅ Query History Basics
+
+### Medium
+
+* ✅ Metadata Columns
+* ✅ CDC Pipeline (basic metadata-driven)
+* ✅ LIST Stage Files
+* ✅ REMOVE Stage Files
+
+### Hard
+
+* ❌ Streams
+* ❌ Tasks
+* ❌ Snowpipe
+* ❌ Resource Monitor
+* ❌ Query Profile
+* ❌ Caching
+* ❌ Clustering Keys
+* ❌ Search Optimization
+* ❌ RBAC Design
+* ❌ Masking Policies
+* ❌ Row Access Policies
+* ❌ Snowpark
+* ❌ Stored Procedures
+* ❌ UDF
+* ❌ Multi Cluster Warehouse
+
+---
+
+# 🧠 SQL
+
+## ✅ Covered
+
+### Easy
+
+* ✅ SELECT
+* ✅ WHERE
+* ✅ GROUP BY
+* ✅ CASE
+* ✅ NULL handling
+* ✅ JOIN
+* ✅ Aggregations
+
+### Medium
+
+* ✅ CTE
+* ✅ Views
+* ✅ Window Functions (basic)
+
+### Hard
+
+* ✅ Incremental MERGE logic
+* ✅ SCD2 concepts
+
+Still Remaining
+
+* ❌ Recursive CTE
+* ❌ Explain Plan
+* ❌ Optimizer
+* ❌ Materialized Views
+
+---
+
+# 🐍 Python
+
+## Covered
+
+### Easy
+
+* ✅ OOP
+* ✅ JSON
+* ✅ YAML
+* ✅ File handling
+* ✅ dotenv
+* ✅ Modules
+
+### Medium
+
+* ✅ Logging
+* ✅ Exception handling
+* ✅ Config Driven Design
+* ✅ CLI scripts
+
+Remaining
+
+* ❌ Async
+* ❌ Multiprocessing
+* ❌ Memory optimization
+
+---
+
+# 🔥 PySpark
+
+Nothing yet.
+
+---
+
+# 🧱 dbt
+
+## Covered
+
+### Easy
+
+* ✅ Models
+* ✅ refs
+* ✅ sources
+* ✅ dbt run
+* ✅ dbt test
+
+### Medium
+
+* ✅ Incremental Model
+* ✅ Snapshots
+* ✅ Bronze/Silver/Gold Layering
+
+Remaining
+
+* ❌ Freshness
+* ❌ Variables
+* ❌ Hooks
+* ❌ Exposures
+
+### Hard
+
+* ✅ Macros (generate_schema_name)
+
+Remaining
+
+* ❌ Packages
+* ❌ Slim CI
+* ❌ Enterprise packages
+
+---
+
+# 🌪️ Airflow
+
+Covered
+
+### Easy
+
+* ✅ DAG
+* ✅ BashOperator
+* ✅ Dependencies
+* ✅ Retries
+* ✅ Scheduling
+
+Remaining
+
+* ❌ XCom
+* ❌ Sensors
+* ❌ Variables
+* ❌ Connections
+* ❌ Branching
+* ❌ Pools
+* ❌ Dynamic DAG
+
+---
+
+# ☁️ AWS
+
+Covered
+
+* ❌ None yet
+
+---
+
+# 🐘 PostgreSQL
+
+Covered
+
+### Easy
+
+* ✅ CRUD
+* ✅ Tables
+* ✅ Schemas
+
+Medium
+
+* ✅ Incremental extraction
+* ✅ Joins
+
+Remaining
+
+* ❌ Triggers
+* ❌ Stored Procedures
+* ❌ JSONB
+
+---
+
+# 📊 Streamlit
+
+Covered
+
+* ❌ None
+
+---
+
+# 🏗 Data Engineering Core
+
+Covered
+
+### Easy
+
+* ✅ ETL
+* ✅ ELT
+* ✅ OLTP
+* ✅ OLAP
+* ✅ Pipeline
+* ✅ Batch
+
+### Medium
+
+* ✅ CDC
+* ✅ Incremental Load
+* ✅ Data Reconciliation
+* ✅ Metadata Driven Pipeline
+* ✅ Backfill concept
+
+Remaining
+
+* ❌ Schema Evolution
+* ❌ Data Contracts
+
+### Hard
+
+Covered
+
+* ✅ Metadata Driven Pipeline
+
+Remaining
+
+* ❌ Observability
+* ❌ Late arriving data
+* ❌ Event Driven
+
+---
+
+# 📐 Data Modelling
+
+Covered
+
+### Easy
+
+* ✅ Dimension Table
+* ✅ PK
+* ✅ FK
+
+### Medium
+
+* ✅ Star Schema
+* ✅ Surrogate Key
+* ✅ SCD Basics
+
+Remaining
+
+* ❌ Snowflake Schema
+
+### Hard
+
+* ✅ SCD Type 2
+
+Remaining
+
+* ❌ Data Vault
+* ❌ Bridge Tables
+
+---
+
+# 🌊 Kafka
+
+Covered
+
+* ❌ None
+
+---
+
+# 📈 DevOps
+
+Covered
+
+* ✅ Git
+* ✅ Logging
+
+Remaining
+
+* ❌ CI/CD
+* ❌ Monitoring
+
+---
+
+# 🧪 Testing
+
+Covered
+
+### Easy
+
+* ✅ not_null
+* ✅ unique
+
+Remaining
+
+* ❌ Freshness
+* ❌ Row Count
+
+Medium
+
+* ❌ Great Expectations
+
+---
+
+# 🏢 Production Operations
+
+Covered
+
+* ✅ Pipeline Debugging
+
+Remaining
+
+* Everything else
+
+---
+
+# 🤖 AI for DE
+
+Covered
+
+* ❌ None
+
+---
+
+# Overall Progress
+
+| Domain           | Progress |
+| ---------------- | -------- |
+| Snowflake        | 🟢 50%   |
+| SQL              | 🟢 65%   |
+| Python           | 🟢 70%   |
+| dbt              | 🟢 80%   |
+| Airflow          | 🟢 40%   |
+| PostgreSQL       | 🟢 55%   |
+| Data Engineering | 🟢 75%   |
+| Data Modelling   | 🟢 70%   |
+| Testing          | 🟢 45%   |
+| AWS              | 🔴 0%    |
+| Streamlit        | 🔴 0%    |
+| PySpark          | 🔴 0%    |
+| Kafka            | 🔴 0%    |
+| DevOps           | 🟡 25%   |
+| AI for DE        | 🔴 0%    |
+
+---
+
+# 🚀 Recommended roadmap from here
+
+This is the sequence that will give you the strongest portfolio and interview readiness:
+
+1. ✅ Finish end-to-end pipeline testing (update PostgreSQL → extract → load → dbt → snapshot → tests)
+2. ✅ Build a **Customer 360 Streamlit dashboard** on top of your Snowflake marts.
+3. ✅ Learn **Snowpark** by querying Snowflake directly from Streamlit.
+4. ✅ Add **Airflow using Docker** and orchestrate the full pipeline.
+5. ✅ Add **CI/CD** (GitHub Actions for dbt tests and deployment).
+6. ✅ Start **PySpark + Databricks** for big data processing.
+7. ✅ Learn **AWS** (S3, Glue, IAM, Lambda).
+8. ✅ Move to **Kafka + Streaming** for real-time pipelines.
+
+This order builds naturally from your existing project and mirrors how many production data platforms evolve.
+

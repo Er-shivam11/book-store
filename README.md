@@ -466,6 +466,4 @@ You can **walk through your diagram + code snippets + architectural choices** co
 
 ---
 
-If you want, I can also make a **condensed “1-page visual summary” PDF** combining: diagram + topics + keywords + implementation references — perfect for **last-minute interview revision**.
 
-Do you want me to do that?
