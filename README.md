@@ -1,43 +1,4 @@
-pip freeze > requirements.txt
-npx create-next-app@latest frontend
 
-<!-- iimpact de freeze -->
-1. Django (Source System)
-      ↓
-2. Postgres (DB tables already exist)
-      ↓
-3. Python Extractor (ingestion)
-      ↓
-4. Airflow DAG (orchestration)
-      ↓
-5. Snowflake (raw layer)
-      ↓
-6. PySpark / dbt
-      ↓
-7. Cortex (AI layer on top)
-      ↓
-8. Streamlit dashboards
-
-<!-- data_platform -->
-Django (users/books/orders)
-   ↓
-PostgreSQL tables updated
-   ↓
-Python ingestion job
-   ↓
-Raw files (JSON/CSV)
-   ↓
-Storage layer (S3 simulation)
-   ↓
-Snowflake raw tables (COPY INTO)
-   ↓
-Staging tables
-   ↓
-dbt transformations
-   ↓
-Analytics marts
-   ↓
-Dashboard / insights
 
 
 ```python
@@ -206,52 +167,6 @@ book_store/
 │   ├── tailwind.config.js
 │   └── vite.config.js
 |
-├── impact_de/                          #freeze
-│   ├── configs/
-│   │   └── settings.py                 # env + constants
-│   │
-│   ├── ingestion/
-│   │   ├── config/                     # WHAT (metadata)
-│   │   │   ├── users.yaml
-│   │   │   ├── books.yaml
-│   │   │   └── orders.yaml
-│   │   │
-│   │   ├── extractors/                 # HOW (business logic)
-│   │   │   ├── __init__.py
-│   │   │   ├── base.py
-│   │   │   ├── users.py
-│   │   │   ├── books.py
-│   │   │   ├── categories.py
-│   │   │   ├── orders.py
-│   │   │   ├── payments.py
-│   │   │   └── user_events.py
-│   │   │
-│   │   ├── dags/                       # WHEN (Airflow later)
-│   │   │   └── main_pipeline.py
-│   │   │
-│   │   ├── utils/                      # shared core infra
-│   │   │   ├── __init__.py
-│   │   │   ├── yaml_loader.py
-│   │   │   ├── db_connector.py
-│   │   │   └── logger.py
-│   │   │
-│   │   └── runner.py                   # ENTRYPOINT (important)
-│   │
-│   ├── logs/
-│   │
-│   ├── warehouse/                      # WHERE (Snowflake)
-│   │   ├── schemas/
-│   │   │   └── raw.sql
-│   │   └── snowflake_client.py
-│   │
-│   ├── requirements.txt
-│   └── README.md
-|
-|
-├── genai/
-│   ├── main.py
-│   └── requirements.txt
-│
 ├── venv/
 ├── .env
 ├── docker-compose.yml                  # ✅ single entry point (IMPORTANT)
@@ -259,12 +174,36 @@ book_store/
 └── README.md
 
 
-
+pip freeze > requirements.txt
+npx create-next-app@latest frontend
 
 book_store/
-├── backend/              → requirements.txt (Django stack)
-├── data_platform/        → requirements.txt (Snowflake, pandas, dbt, airflow)
-├── frontend/             → npm dependencies (isolated already)
+├── siyaram_bookstore/                      → backend(Django stack)
+├── data_platform/                          → data engineering (Snowflake, pandas, dbt, airflow)
+├── siyaram_bookstore_frontend/             → frontend
+
+
+
+<!-- data_platform -->
+Django (users/books/orders)
+   ↓
+PostgreSQL tables updated
+   ↓
+Python ingestion job
+   ↓
+Raw files (JSON/CSV)
+   ↓
+Storage layer (S3 simulation)
+   ↓
+Snowflake raw tables (COPY INTO)
+   ↓
+Staging tables
+   ↓
+dbt transformations
+   ↓
+Analytics marts
+   ↓
+Dashboard / insights
 
 ```
 1. A **full system flow diagram** of your Bookstore project showing all components.
