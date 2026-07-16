@@ -1,6 +1,3 @@
-
-
-
 ```python
 
 book_store/
@@ -47,131 +44,131 @@ book_store/
 |    ├── cdc/                  # Debezium / Kafka (Placeholder for future scale)
 |    └── utils/                # Shared utilities (db_connections, logger)
 │
-├── siyaram_bookstore/         # 🐍 Django Backend # Django OLTP (Untouched source of truth)
-│   ├── manage.py
-│   ├── Dockerfile
-│   ├── bookstore.log
-│   ├── media/
-│   ├── staticfiles/
-│   ├── db.sqlite3
+├── siyaram_bookstore/         # 🐍 Django Backend — transactional app and source of truth
+│   ├── manage.py # Django entry point for running the project and management commands
+│   ├── Dockerfile # Container definition for the backend service
+│   ├── bookstore.log # Application log file for backend runtime events
+│   ├── media/ # Uploaded media files such as book images and documents
+│   ├── staticfiles/ # Collected static assets for deployment
+│   ├── db.sqlite3 # Local SQLite database used during development
 │   │
-│   ├── siyaram_bookstore/              # Django settings package
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── wsgi.py
-│   │   ├── asgi.py
-│   │   ├── celery.py
-│   │   └── exceptions.py
+│   ├── siyaram_bookstore/ # Core Django project package for settings, routing, and app wiring
+│   │   ├── __init__.py # Marks the package as a Python module
+│   │   ├── settings.py # Main Django settings, middleware, installed apps, and config
+│   │   ├── urls.py # Root URL configuration for the backend API
+│   │   ├── wsgi.py # WSGI entry point for deployment servers
+│   │   ├── asgi.py # ASGI entry point for async-capable deployment
+│   │   ├── celery.py # Celery app initialization and task configuration
+│   │   └── exceptions.py # Custom exception definitions used across the backend
 │   │
-│   ├── core/
-│   │   ├── __init__.py
-│   │   ├── responses.py
-│   │   ├── exceptions.py
-│   │   └── validators.py
+│   ├── core/ # Shared base utilities, response helpers, validators, and exceptions
+│   │   ├── __init__.py # Marks the core package as a Python module
+│   │   ├── responses.py # Standard API response wrappers for consistent payloads
+│   │   ├── exceptions.py # Common custom exceptions for API behavior
+│   │   └── validators.py # Reusable validation logic used by other apps
 │   │
-│   ├── users/
-│   │   ├── migrations/
-│   │   ├── __init__.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py
-│   │   ├── permissions.py
-│   │   ├── serializers.py
-│   │   ├── services.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── tests.py
+│   ├── users/ # Authentication, profile, permission, and user-related APIs
+│   │   ├── migrations/ # Database migrations for the users app
+│   │   ├── __init__.py # Marks the users app as a Python package
+│   │   ├── admin.py # Django admin configuration for user models
+│   │   ├── apps.py # App configuration for the users module
+│   │   ├── models.py # User-related database models and relationships
+│   │   ├── permissions.py # Custom permission classes for access control
+│   │   ├── serializers.py # DRF serializers for user data handling
+│   │   ├── services.py # Business logic for user operations
+│   │   ├── views.py # API views for user endpoints
+│   │   ├── urls.py # URL routes for the users app
+│   │   └── tests.py # Unit and integration tests for the users app
 │   │
-│   ├── books/
-│   │   ├── migrations/
-│   │   ├── __init__.py
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   ├── models.py
-│   │   ├── permissions.py
-│   │   ├── serializers.py
-│   │   ├── views.py
-│   │   ├── urls.py
-│   │   └── tests/
-│   │       └── test_books.py
+│   ├── books/ # Book catalog management, search, and inventory-related APIs
+│   │   ├── migrations/ # Database migrations for the books app
+│   │   ├── __init__.py # Marks the books app as a Python package
+│   │   ├── admin.py # Django admin configuration for book models
+│   │   ├── apps.py # App configuration for the books module
+│   │   ├── models.py # Book and category database models
+│   │   ├── permissions.py # Permission rules for book-related actions
+│   │   ├── serializers.py # DRF serializers for books data
+│   │   ├── views.py # API views for book endpoints
+│   │   ├── urls.py # URL routes for the books app
+│   │   └── tests/ # Test suite for the books app
+│   │       └── test_books.py # Example test covering books behavior
 │   │
-│   └── orders/
-│       ├── migrations/
-│       ├── __init__.py
-│       ├── admin.py
-│       ├── apps.py
-│       ├── models.py
-│       ├── permissions.py
-│       ├── serializers.py
-│       ├── services.py
-│       ├── views.py
-│       ├── urls.py
-│       ├── tasks.py
-│       ├── concurrency.py
-│       ├── utils.py
-│       └── tests.py
+│   └── orders/ # Order processing, payments, and fulfillment logic
+│       ├── migrations/ # Database migrations for the orders app
+│       ├── __init__.py # Marks the orders app as a Python package
+│       ├── admin.py # Django admin configuration for order models
+│       ├── apps.py # App configuration for the orders module
+│       ├── models.py # Order-related database models and business entities
+│       ├── permissions.py # Permission checks for order access
+│       ├── serializers.py # DRF serializers for order payloads
+│       ├── services.py # Core business logic for order operations
+│       ├── views.py # API views for order endpoints
+│       ├── urls.py # URL routes for the orders app
+│       ├── tasks.py # Celery tasks for asynchronous order workflows
+│       ├── concurrency.py # Concurrency handling for reservation and order safety
+│       ├── utils.py # Shared helpers for order processing
+│       └── tests.py # Tests for the orders app
 │
-├── siyaram_bookstore_frontend/         # ⚛️ React (Vite)
-│   ├── node_modules/
-│   ├── public/
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── axiosConfig.js          # Axios instance + auth headers
-│   │   │   ├── booksApi.js             # Books & categories APIs
-│   │   │   └── ordersApi.js            # Orders, payments, invoices APIs
+├── siyaram_bookstore_frontend/ # ⚛️ React + Vite frontend for the bookstore UI
+│   ├── node_modules/ # Installed frontend dependencies for local development
+│   ├── public/ # Static public assets served by Vite
+│   ├── src/ # Main source code for the React application
+│   │   ├── api/ # API client layer for backend communication
+│   │   │   ├── axiosConfig.js # Axios instance with shared headers and config
+│   │   │   ├── booksApi.js # API calls for books and category data
+│   │   │   └── ordersApi.js # API calls for orders, payments, and invoices
 │   │   │
-│   │   ├── assets/
-│   │   ├── components/
-│   │   │   ├── CategorySection.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ProtectedRoute.jsx
+│   │   ├── assets/ # Images, icons, and static frontend assets
+│   │   ├── components/ # Reusable UI components for the storefront
+│   │   │   ├── CategorySection.jsx # Category showcase section
+│   │   │   ├── Footer.jsx # Global footer component
+│   │   │   ├── Navbar.jsx # Application navigation bar
+│   │   │   └── ProtectedRoute.jsx # Route guard for authenticated pages
 │   │   │
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx
-│   │   │   ├── CartContext.jsx
-│   │   │   └── UIContext.jsx
+│   │   ├── context/ # Global state providers for auth, cart, and UI
+│   │   │   ├── AuthContext.jsx # Authentication context and login state
+│   │   │   ├── CartContext.jsx # Shopping cart state and cart actions
+│   │   │   └── UIContext.jsx # UI state for modals, loaders, and notifications
 │   │   │
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Books.jsx
-│   │   │   ├── BookDetail.jsx
-│   │   │   ├── CartCheckout.jsx        # Create order from cart
-│   │   │   ├── Payment.jsx             # Payment screen
-│   │   │   ├── OrderSuccess.jsx        # Payment success + order confirmation
-│   │   │   ├── Profile.jsx             # User profile + order history + invoice download
-│   │   │   ├── Login.jsx
-│   │   │   ├── ResetPassword.jsx
-│   │   │   └── AdminDashboard.jsx
+│   │   ├── pages/ # Page-level screens for the storefront experience
+│   │   │   ├── Home.jsx # Landing page for the bookstore
+│   │   │   ├── Books.jsx # Product listing page
+│   │   │   ├── BookDetail.jsx # Detailed product information page
+│   │   │   ├── CartCheckout.jsx # Checkout flow and order creation screen
+│   │   │   ├── Payment.jsx # Payment form and processing screen
+│   │   │   ├── OrderSuccess.jsx # Success confirmation page after payment
+│   │   │   ├── Profile.jsx # User profile and order history page
+│   │   │   ├── Login.jsx # Login page for users
+│   │   │   ├── ResetPassword.jsx # Password reset flow
+│   │   │   └── AdminDashboard.jsx # Admin panel for managing the app
 │   │   │
-│   │   ├── routes/
-│   │   │   ├── AdminRoute.jsx
-│   │   │   └── styles/
+│   │   ├── routes/ # Route configuration and navigation wrappers
+│   │   │   ├── AdminRoute.jsx # Admin-only route protection component
+│   │   │   └── styles/ # Styling helpers and route-related UI styles
 │   │   │
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   ├── firebase.js
-│   │   └── main.jsx
+│   │   ├── App.jsx # Root React component for app routing and layout
+│   │   ├── App.css # Main application styles
+│   │   ├── firebase.js # Firebase configuration for frontend services
+│   │   └── main.jsx # React entry point that mounts the application
 │   │
-│   ├── Dockerfile
-│   ├── TOPICS.md
-│   ├── eslint.config.js
-│   ├── frontend.MD
-│   ├── .gitignore
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── README.md
-│   ├── tailwind.config.js
-│   └── vite.config.js
-|
-├── venv/
-├── .env
-├── docker-compose.yml                  # ✅ single entry point (IMPORTANT)
-├── requirements.txt
-└── README.md
+│   ├── Dockerfile # Container definition for the frontend service
+│   ├── TOPICS.md # Frontend learning notes and topic references
+│   ├── eslint.config.js # Linting rules for the frontend project
+│   ├── frontend.MD # Frontend setup and usage notes
+│   ├── .gitignore # Files ignored by Git in the frontend app
+│   ├── index.html # Root HTML template used by Vite
+│   ├── package-lock.json # Locked dependency versions for npm
+│   ├── package.json # Frontend package metadata and scripts
+│   ├── postcss.config.js # PostCSS configuration for styling pipelines
+│   ├── README.md # Frontend project documentation
+│   ├── tailwind.config.js # Tailwind CSS configuration
+│   └── vite.config.js # Vite build and development server configuration
+│
+├── venv/ # Local Python virtual environment for development
+├── .env # Environment variables for the project
+├── docker-compose.yml # Single entry point for running the full stack
+├── requirements.txt # Root Python dependencies for the project
+└── README.md # Main project documentation and architecture overview
 
 
 pip freeze > requirements.txt
