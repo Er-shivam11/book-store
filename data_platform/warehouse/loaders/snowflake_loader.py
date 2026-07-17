@@ -11,6 +11,36 @@ class SnowflakeLoader:
     def __init__(self):
         self.conn = get_snowflake_connection()
 
+    def setup_infrastructure(self):
+
+        cursor = self.conn.cursor()
+    
+        sql_files = [
+            "warehouse/ddl/create_database.sql",
+            "warehouse/ddl/create_schema.sql",
+            "warehouse/stages/create_internal_stage.sql",
+            "warehouse/ddl/raw_users_user.sql"
+        ]
+    
+        for sql_file in sql_files:
+        
+            print(f"📌 Executing {sql_file}")
+    
+            with open(sql_file, "r") as f:
+                sql_commands = f.read().split(";")
+    
+            for command in sql_commands:
+            
+                command = command.strip()
+    
+                if command:
+                    cursor.execute(command)
+    
+            print(f"✅ Executed {sql_file}")
+    
+        cursor.close()
+        print("✅ Snowflake infrastructure ready")
+
     def upload_to_stage(
         self,
         file_path,
@@ -26,6 +56,7 @@ class SnowflakeLoader:
         PUT file://{Path(file_path).absolute()}
         @{stage_name}
         OVERWRITE = TRUE
+        AUTO_COMPRESS = FALSE
         """
 
         cursor.execute(put_query)

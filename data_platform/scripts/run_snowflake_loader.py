@@ -1,3 +1,4 @@
+# data_platform/scripts/run_snowflake_loader.py
 from warehouse.loaders.snowflake_loader import SnowflakeLoader
 import os
 from pathlib import Path
@@ -22,7 +23,7 @@ def test_snowflake_load():
     print(f"📌 Loading file: {latest_file}")
 
     loader = SnowflakeLoader()
-
+    loader.setup_infrastructure()
     loader.upload_to_stage(latest_file)
     loader.copy_into_raw_table()
 

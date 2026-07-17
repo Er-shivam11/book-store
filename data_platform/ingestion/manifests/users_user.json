@@ -4,7 +4,7 @@
         "id"
     ],
     "watermark_column": "updated_at",
-    "last_watermark": "2026-06-18 03:42:38.413882+00:00",
+    "last_watermark": "2026-06-18 06:54:04.682457+00:00",
     "rows_extracted": 1,
     "run_status": "success"
 }

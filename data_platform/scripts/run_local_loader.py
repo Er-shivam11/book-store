@@ -1,11 +1,33 @@
+# data_platform/scripts/run_local_loader.py
 from ingestion.extractors.postgres_extractor import PostgresExtractor
 from ingestion.loaders.local_loader import LocalLoader
+import os
 
 
 def test_pipeline():
 
-    extractor = PostgresExtractor("users_user.yml")
-    data = extractor.extract_full_data()
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+
+    config_path = os.path.join(
+        base_dir,
+        "ingestion",
+        "config",
+        "users_user.yml"
+    )
+
+    manifest_path = os.path.join(
+        base_dir,
+        "ingestion",
+        "manifests",
+        "users_user.json"
+    )
+
+    extractor = PostgresExtractor(
+        config_file=config_path,
+        manifest_file=manifest_path
+    )
+
+    data = extractor.extract_data()
 
     loader = LocalLoader()
     loader.load_to_raw("users_user", data)

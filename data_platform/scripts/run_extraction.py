@@ -1,3 +1,4 @@
+# data_platform/scripts/run_extraction.py
 from ingestion.extractors.postgres_extractor import PostgresExtractor
 import os
 

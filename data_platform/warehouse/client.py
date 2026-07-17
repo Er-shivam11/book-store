@@ -19,13 +19,13 @@ def get_snowflake_connection():
 
         cursor = conn.cursor()
 
-        cursor.execute(
-            f"USE DATABASE {os.getenv('SNOWFLAKE_DATABASE')}"
-        )
+        # cursor.execute(
+        #     f"USE DATABASE {os.getenv('SNOWFLAKE_DATABASE')}"
+        # )
 
-        cursor.execute(
-            f"USE SCHEMA {os.getenv('SNOWFLAKE_SCHEMA')}"
-        )
+        # cursor.execute(
+        #     f"USE SCHEMA {os.getenv('SNOWFLAKE_SCHEMA')}"
+        # )
 
         cursor.close()
 

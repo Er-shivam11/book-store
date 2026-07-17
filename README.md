@@ -178,6 +178,11 @@ book_store/
 ├── siyaram_bookstore/                      → backend(Django stack)
 ├── data_platform/                          → data engineering (Snowflake, pandas, dbt, airflow)
 ├── siyaram_bookstore_frontend/             → frontend
+├── venv/ # Local Python virtual environment for development
+├── .env # Environment variables for the project
+├── docker-compose.yml # Single entry point for running the full stack
+├── requirements.txt # Root Python dependencies for the project
+└── README.md # Main project documentation and architecture overview
 
 
 
