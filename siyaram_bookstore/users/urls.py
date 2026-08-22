@@ -1,3 +1,4 @@
+# users/urls.py
 from django.urls import path
 from .views import LoginView, LogoutView, ProfileView, SimpleResetPasswordView
 from rest_framework_simplejwt.views import TokenRefreshView
