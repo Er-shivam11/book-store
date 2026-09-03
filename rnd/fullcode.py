@@ -1,11 +1,73 @@
+# book_store/
+# ├── siyaram_bookstore/         # 🐍 Django Backend — transactional app and source of truth
+# │   ├── manage.py # Django entry point for running the project and management commands
+# │   ├── Dockerfile # Container definition for the backend service
+# │   ├── bookstore.log # Application log file for backend runtime events
+# │   ├── media/ # Uploaded media files such as book images and documents
+# │   ├── staticfiles/ # Collected static assets for deployment
+# │   ├── db.sqlite3 # Local SQLite database used during development
+# │   │
+# │   ├── siyaram_bookstore/ # Core Django project package for settings, routing, and app wiring
+# │   │   ├── __init__.py # Marks the package as a Python module
+# │   │   ├── settings.py # Main Django settings, middleware, installed apps, and config
+# │   │   ├── urls.py # Root URL configuration for the backend API
+# │   │   ├── wsgi.py # WSGI entry point for deployment servers
+# │   │   ├── asgi.py # ASGI entry point for async-capable deployment
+# │   │   ├── celery.py # Celery app initialization and task configuration
+# │   │   └── exceptions.py # Custom exception definitions used across the backend
+# │   │
+# │   ├── core/ # Shared base utilities, response helpers, validators, and exceptions
+# │   │   ├── __init__.py # Marks the core package as a Python module
+# │   │   ├── responses.py # Standard API response wrappers for consistent payloads
+# │   │   ├── exceptions.py # Common custom exceptions for API behavior
+# │   │   └── validators.py # Reusable validation logic used by other apps
+# │   │
+# │   ├── users/ # Authentication, profile, permission, and user-related APIs
+# │   │   ├── migrations/ # Database migrations for the users app
+# │   │   ├── __init__.py # Marks the users app as a Python package
+# │   │   ├── admin.py # Django admin configuration for user models
+# │   │   ├── apps.py # App configuration for the users module
+# │   │   ├── models.py # User-related database models and relationships
+# │   │   ├── permissions.py # Custom permission classes for access control
+# │   │   ├── serializers.py # DRF serializers for user data handling
+# │   │   ├── services.py # Business logic for user operations
+# │   │   ├── views.py # API views for user endpoints
+# │   │   ├── urls.py # URL routes for the users app
+# │   │   └── tests.py # Unit and integration tests for the users app
+# │   │
+# │   ├── books/ # Book catalog management, search, and inventory-related APIs
+# │   │   ├── migrations/ # Database migrations for the books app
+# │   │   ├── __init__.py # Marks the books app as a Python package
+# │   │   ├── admin.py # Django admin configuration for book models
+# │   │   ├── apps.py # App configuration for the books module
+# │   │   ├── models.py # Book and category database models
+# │   │   ├── permissions.py # Permission rules for book-related actions
+# │   │   ├── serializers.py # DRF serializers for books data
+# │   │   ├── views.py # API views for book endpoints
+# │   │   ├── urls.py # URL routes for the books app
+# │   │   └── tests/ # Test suite for the books app
+# │   │       └── test_books.py # Example test covering books behavior
+# │   │
+# │   └── orders/ # Order processing, payments, and fulfillment logic
+# │       ├── migrations/ # Database migrations for the orders app
+# │       ├── __init__.py # Marks the orders app as a Python package
+# │       ├── admin.py # Django admin configuration for order models
+# │       ├── apps.py # App configuration for the orders module
+# │       ├── models.py # Order-related database models and business entities
+# │       ├── permissions.py # Permission checks for order access
+# │       ├── serializers.py # DRF serializers for order payloads
+# │       ├── services.py # Core business logic for order operations
+# │       ├── views.py # API views for order endpoints
+# │       ├── urls.py # URL routes for the orders app
+# │       ├── tasks.py # Celery tasks for asynchronous order workflows
+# │       ├── concurrency.py # Concurrency handling for reservation and order safety
+# │       ├── utils.py # Shared helpers for order processing
+# │       └── tests.py # Tests for the orders app
+# ├── .env # Environment variables for the project
+# ├── docker-compose.yml # Single entry point for running the full stack
+# ├── requirements.txt # Root Python dependencies for the project
+# └── README.md # Main project documentation and architecture overview
 
-# siyaram_bookstore/
-# ├── settings.py
-# ├── urls.py
-# ├── celery.py
-# ├── asgi.py
-# ├── wsgi.py
-# └── exceptions.py
 
 
 # siyaram_bookstore/urls.py
