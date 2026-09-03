@@ -4,7 +4,9 @@ import axios from "axios";
 // =========================
 // 🌍 BASE URL (can be moved to .env later)
 // =========================
-const BASE_URL = "http://localhost:8000/api/";
+// const BASE_URL = "http://localhost:8000/api/";--old
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
 
 // =========================
 // 🚀 AXIOS INSTANCE
