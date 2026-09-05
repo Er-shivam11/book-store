@@ -1,3 +1,4 @@
+# siyaram_bookstore/settings_prd.py
 """
 Production settings for Siyaram Bookstore.
 """

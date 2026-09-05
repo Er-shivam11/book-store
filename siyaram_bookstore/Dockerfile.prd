@@ -1,3 +1,4 @@
+# siyaram_bookstore/Dockerfile.prd
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -29,4 +30,5 @@ COPY siyaram_bookstore/ /app/
 
 EXPOSE 10000
 
-CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn siyaram_bookstore.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py create_admin && python manage.py collectstatic --noinput && gunicorn siyaram_bookstore.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
+# CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn siyaram_bookstore.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
