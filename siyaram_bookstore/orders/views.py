@@ -27,12 +27,23 @@ class PaymentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        # Prevent Swagger/drf-yasg from evaluating the queryset
+        # with AnonymousUser during schema generation.
+        if getattr(self, "swagger_fake_view", False):
+            return Payment.objects.none()
+
         user = self.request.user
+
+        # Safety check for unauthenticated requests
+        if not user or not user.is_authenticated:
+            return Payment.objects.none()
+
         if user.is_staff:
             return Payment.objects.all().order_by("-created_at")
-        return Payment.objects.filter(order__user=user).order_by("-created_at")
 
-
+        return Payment.objects.filter(
+            order__user=user
+        ).order_by("-created_at")
 class MyOrdersAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
