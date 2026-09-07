@@ -17,7 +17,7 @@ snowflake_accounts
 
 # Django
 db.sqlite3
-media/
+
 
 # Environment Variables
 .env
