@@ -1,4 +1,5 @@
 # books/views.py
+
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from django.core.cache import cache
 from rest_framework import filters
@@ -62,16 +63,24 @@ class BookViewSet(ModelViewSet):
     # =========================
     def list(self, request, *args, **kwargs):
         cache_key = f"books_list_{request.get_full_path()}"
-        cached = cache.get(cache_key)
-
-        if cached:
-            logger.info("Books served from cache")
-            return success_response("Books fetched", cached)
-
+    
+        try:
+            cached = cache.get(cache_key)
+    
+            if cached:
+                logger.info("Books served from cache")
+                return success_response("Books served from cache", cached)
+    
+        except Exception as e:
+            logger.warning(f"Redis cache unavailable: {e}")
+    
         response = super().list(request, *args, **kwargs)
-
-        cache.set(cache_key, response.data, timeout=60 * 3)
-
+    
+        try:
+            cache.set(cache_key, response.data, timeout=60 * 3)
+        except Exception as e:
+            logger.warning(f"Redis cache write failed: {e}")
+    
         return success_response("Books fetched", response.data)
 
     # =========================
