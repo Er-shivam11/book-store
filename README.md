@@ -47,6 +47,7 @@ book_store/
 ├── siyaram_bookstore/         # 🐍 Django Backend — transactional app and source of truth
 │   ├── manage.py # Django entry point for running the project and management commands
 │   ├── Dockerfile # Container definition for the backend service
+│   ├── Dockerfile.prd # Prd Container definition for the backend service
 │   ├── bookstore.log # Application log file for backend runtime events
 │   ├── media/ # Uploaded media files such as book images and documents
 │   ├── staticfiles/ # Collected static assets for deployment
