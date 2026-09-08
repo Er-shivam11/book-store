@@ -28,6 +28,10 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY siyaram_bookstore/ /app/
 
+RUN ls -lah /app/media/books/covers/
+
+EXPOSE 10000
+
 EXPOSE 10000
 
 CMD ["sh", "-c", "python manage.py migrate && python manage.py create_admin && python manage.py collectstatic --noinput && gunicorn siyaram_bookstore.wsgi:application --bind 0.0.0.0:${PORT:-10000}"]
