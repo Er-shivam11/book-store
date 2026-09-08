@@ -121,23 +121,37 @@ CSRF_TRUSTED_ORIGINS = os.getenv(
 # Optional: allow all during dev
 CORS_ALLOW_ALL_ORIGINS = False
 # Cache config using Redis
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.getenv("REDIS_URL", "redis://redis:6379/0"),
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
+# Cache config using Redis when available
+REDIS_URL = os.getenv("REDIS_URL")
+
+if REDIS_URL:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
     }
-}
+else:
+    # Fallback cache when Redis is not configured
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "siyaram-bookstore-cache",
+        }
+    }
+
 
 # Celery configuration
-CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://redis:6379/0")
-CELERY_RESULT_BACKEND = os.getenv("REDIS_URL", "redis://redis:6379/0")
-CELERY_ACCEPT_CONTENT = ['json']  # Accept JSON
-CELERY_TASK_SERIALIZER = 'json'  # Task serializer
-CELERY_RESULT_SERIALIZER = 'json'  # Result serializer
-CELERY_TIMEZONE = 'Asia/Kolkata'  # Timezone
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kolkata"
 
 # RAZORPAY_KEY = os.getenv("RAZORPAY_KEY")
 # RAZORPAY_SECRET = os.getenv("RAZORPAY_SECRET")
